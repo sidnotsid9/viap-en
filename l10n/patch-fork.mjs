@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Phase 4 — fork patches (plan §Phase 4, exactly six edits). Every edit
 // asserts its anchor count and is idempotent (already-patched → no-op).
-//   node l10n/patch-fork.mjs --src <scratch dir> [--owner Sid954] [--repo viap]
+//   node l10n/patch-fork.mjs --src <scratch dir> [--owner sidnotsid9] [--repo viap-en]
 //         [--pubkey-file <minisign .pub>]
 // Pubkey resolution: --pubkey-file > l10n/data/pubkey.txt. Without either,
 // the run FAILS — never guess a key.
@@ -16,8 +16,8 @@ const get = (k) => {
   return i >= 0 ? args[i + 1] : undefined;
 };
 const src = get('--src');
-const OWNER = get('--owner') ?? 'Sid954';
-const REPO = get('--repo') ?? 'viap';
+const OWNER = get('--owner') ?? 'sidnotsid9';
+const REPO = get('--repo') ?? 'viap-en';
 const pubkeyFile = get('--pubkey-file') ?? join(here, 'data', 'pubkey.txt');
 if (!src || !existsSync(pubkeyFile)) {
   console.error('usage: patch-fork.mjs --src DIR [--owner O --repo R --pubkey-file F]');

@@ -31,14 +31,14 @@ and a release is published **only** when every gate passes.
 ## Downloads
 
 Grab installers (NSIS, offline WebView2, portable) from this fork's
-[Releases](https://github.com/Sid954/viap/releases). Builds are unsigned — expect a SmartScreen
+[Releases](https://github.com/sidnotsid9/viap-en/releases). Builds are unsigned — expect a SmartScreen
 prompt ("More info → Run anyway").
 
 ## Building locally
 
 ```bash
-git clone https://github.com/Sid954/viap
-cd viap
+git clone https://github.com/sidnotsid9/viap-en
+cd viap-en
 git clone --depth 1 --branch v1.3.2 https://github.com/Chunyu33/viap .l10n-work/upstream
 cd l10n && npm ci && (cd rust-tool && cargo build --release)
 node apply.mjs --src ../.l10n-work/upstream --tm data
@@ -57,5 +57,5 @@ Requirements: Node ≥ 18, Rust (MSVC), VS Build Tools.
 ## Disclaimer
 
 This is an unofficial community build, not affiliated with or endorsed by the original author.
-Translation issues belong in this fork's [issues](https://github.com/Sid954/viap/issues);
+Translation issues belong in this fork's [issues](https://github.com/sidnotsid9/viap-en/issues);
 application bugs belong upstream.

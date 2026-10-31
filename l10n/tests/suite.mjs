@@ -195,7 +195,7 @@ const allowed = new Map(); // posix file -> Set(pristine line numbers)
     }
   }
 }
-const PATCH_LINE = /(Sid954\/viap|Chunyu33\/viap|pan\.quark\.cn|dW50cnVzdGVk|pubkey|en-US'|zh-CN'|localeCompare\([^)]*, '(?:en|zh-CN)'\))/;
+const PATCH_LINE = /(sidnotsid9\/viap-en|Chunyu33\/viap|pan\.quark\.cn|dW50cnVzdGVk|pubkey|en-US'|zh-CN'|localeCompare\([^)]*, '(?:en|zh-CN)'\))/;
 // edit 7 (fork identity surgery): excuse hunks carrying these distinctive tokens
 const EDIT7_LINE = new RegExp([
   "viap.evan666.cc", "setDonateModalOpen", "setPromoModalOpen", "DonateModal", "ProjectPromoModal",
