@@ -109,14 +109,18 @@ jobs:
           echo "pending_count=$COUNT" >> "$GITHUB_ENV"
           echo "pending: $COUNT"
 
-      - name: Auto-translate new strings (GitHub Models)
+      - name: Auto-translate new strings (OpenAI-compatible API)
         if: env.skip != 'true' && env.pending_count != '0' && env.GH_MODELS_TOKEN != ''
         env:
           L10N_TOKEN: ${{ secrets.GH_MODELS_TOKEN }}
         run: |
+          if [ -z "${{ vars.GH_MODELS_ENDPOINT }}" ] || [ -z "${{ vars.GH_MODELS_MODEL }}" ]; then
+            echo "::error::Set GH_MODELS_ENDPOINT and GH_MODELS_MODEL repository variables"
+            exit 1
+          fi
           node l10n/translate.mjs \
-            --endpoint "${{ vars.GH_MODELS_ENDPOINT || 'https://models.github.ai/inference/v1/chat/completions' }}" \
-            --model "${{ vars.GH_MODELS_MODEL || 'openai/gpt-4.1-mini' }}" \
+            --endpoint "${{ vars.GH_MODELS_ENDPOINT }}" \
+            --model "${{ vars.GH_MODELS_MODEL }}" \
             --pending l10n/data/pending.json \
             --out l10n/data/translations.json \
             --no-git
