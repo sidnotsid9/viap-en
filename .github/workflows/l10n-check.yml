@@ -69,7 +69,7 @@ jobs:
           echo "upstream latest: $TAG"
 
       - name: Early exit when nothing is new
-        if: ${{ !inputs.force && github.event_name == 'schedule' }}
+        if: ${{ !inputs.force }}
         run: |
           LAST=$(node l10n/state.mjs get last_built_tag)
           if [ "$LAST" = "${{ steps.upstream.outputs.tag }}" ]; then
@@ -141,7 +141,7 @@ jobs:
             git commit -m "l10n: update data for ${{ steps.upstream.outputs.tag }} (check run ${{ github.run_id }})"
             git push
           fi
-          gh workflow run release-en.yml --ref main -f tag="${{ steps.upstream.outputs.tag }}" -f dry-run=false -f prerelease=true
+          gh workflow run release-en.yml --ref main -f tag="${{ steps.upstream.outputs.tag }}" -f dry-run=false -f prerelease=false
           echo "dispatched release-en for ${{ steps.upstream.outputs.tag }}"
 
       - name: File issue when strings remain
