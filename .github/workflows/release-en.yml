@@ -75,7 +75,7 @@ jobs:
           if ('${{ inputs.dry-run }}' -eq 'true') {
             npx --prefix upstream tauri signer generate -w $env:RUNNER_TEMP/smoke.key --password "smoke" --ci | Out-Null
             "file=$env:RUNNER_TEMP/smoke.key.pub" >> $env:GITHUB_OUTPUT
-            "key=$env:RUNNER_TEMP/smoke.key" >> $env:GITHUB_OUTPUT
+            "key=$((Get-Content $env:RUNNER_TEMP/smoke.key -Raw).Trim())" >> $env:GITHUB_OUTPUT
             Write-Output "DRY-RUN: using ephemeral throwaway key"
           } elseif (Test-Path l10n/data/pubkey.txt) {
             "file=$(Resolve-Path l10n/data/pubkey.txt)" >> $env:GITHUB_OUTPUT
@@ -144,7 +144,7 @@ jobs:
       - name: Build installer (dry-run)
         if: ${{ inputs.dry-run }}
         env:
-          TAURI_SIGNING_PRIVATE_KEY_PATH: ${{ steps.pubkey.outputs.key }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ steps.pubkey.outputs.key }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: smoke
         run: npm run tauri build -- --target x86_64-pc-windows-msvc
         working-directory: upstream
