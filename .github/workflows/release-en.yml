@@ -107,7 +107,14 @@ jobs:
         working-directory: upstream
 
       - name: Gate - cargo test (must match upstream baseline)
-        run: cargo test --manifest-path upstream/src-tauri/Cargo.toml
+        shell: pwsh
+        run: |
+          # Upstream test assumes temp_dir() is under the user profile; hosted runners use D:\a\_temp.
+          $tmp = Join-Path $env:USERPROFILE 'AppData\Local\Temp\viap-tests'
+          New-Item -ItemType Directory -Force $tmp | Out-Null
+          $env:TMP = $tmp
+          $env:TEMP = $tmp
+          cargo test --manifest-path upstream/src-tauri/Cargo.toml
 
       - name: Gate - residue scan (strict)
         run: node l10n/residue.mjs --src upstream --corpus corpus.json --tm l10n/data --strict
