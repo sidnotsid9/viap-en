@@ -76,7 +76,7 @@ jobs:
             "file=$(Resolve-Path l10n/data/pubkey.txt)" >> $env:GITHUB_OUTPUT
             Write-Output "using fork pubkey (l10n/data/pubkey.txt)"
           } elseif ('${{ inputs.dry-run }}' -eq 'true') {
-            npx --prefix upstream tauri signer generate -w $env:RUNNER_TEMP/smoke.key --password "" --ci | Out-Null
+            npx --prefix upstream tauri signer generate -w $env:RUNNER_TEMP/smoke.key --password "smoke" --ci | Out-Null
             "file=$env:RUNNER_TEMP/smoke.key.pub" >> $env:GITHUB_OUTPUT
             Write-Output "DRY-RUN: using ephemeral throwaway key"
           } else {

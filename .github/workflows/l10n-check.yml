@@ -36,6 +36,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       UPSTREAM_REPO: Chunyu33/viap
+      GH_MODELS_TOKEN: ${{ secrets.GH_MODELS_TOKEN }}
     steps:
       - name: Checkout fork (tooling + data)
         uses: actions/checkout@v4
@@ -109,7 +110,7 @@ jobs:
           echo "pending: $COUNT"
 
       - name: Auto-translate new strings (GitHub Models)
-        if: env.skip != 'true' && env.pending_count != '0' && secrets.GH_MODELS_TOKEN != ''
+        if: env.skip != 'true' && env.pending_count != '0' && env.GH_MODELS_TOKEN != ''
         env:
           L10N_TOKEN: ${{ secrets.GH_MODELS_TOKEN }}
         run: |
